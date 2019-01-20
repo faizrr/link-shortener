@@ -6,7 +6,7 @@ import mockRepository, {
   mockSave,
   mockFindOne,
   mockFindOneOrFail,
-} from 'shared/mocks/repository';
+} from 'shared/mocks/repository.mock';
 
 describe('LinksService', () => {
   let service: LinksService;

@@ -1,0 +1,40 @@
+version: "3"
+services:
+  client:
+    build:
+      context: .
+      dockerfile: client.Dockerfile
+    volumes:
+      - frontend:/frontend/build
+  server:
+    build:
+      context: .
+      dockerfile: server.Dockerfile
+    environment:
+      - PG_HOST=psql
+    ports:
+      - "3001"
+    depends_on:
+      - psql
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    ports:
+      - "9000:80"
+    depends_on:
+      - server
+      - client
+    volumes:
+      - frontend:/frontend
+  psql:
+    image: postgres:11-alpine
+    environment:
+      - POSTGRES_DB=link-shortener
+    ports:
+      - "5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+
+volumes:
+  frontend:

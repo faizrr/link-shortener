@@ -1,0 +1,8 @@
+packages/client/node_modules/**/*
+packages/client/node_modules
+packages/client/build/**/*
+packages/client/build
+packages/server/node_modules/**/*
+packages/server/node_modules
+packages/server/dist/**/*
+packages/server/dist
