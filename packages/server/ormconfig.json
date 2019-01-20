@@ -1,8 +1,0 @@
-{
-  "type": "postgres",
-  "host": "localhost",
-  "username": "postgres",
-  "database": "link-shortener",
-  "entities": ["src/**/**.entity{.ts,.js}"],
-  "synchronize": true
-}
