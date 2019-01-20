@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { LinksController } from './links.controller';
-import { Link } from './links.entity';
-import { LinksService } from './links.service';
+import { LinksCommonModule } from './links.common.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Link])],
+  imports: [LinksCommonModule],
   controllers: [LinksController],
-  providers: [LinksService],
 })
 export class LinksModule {}
