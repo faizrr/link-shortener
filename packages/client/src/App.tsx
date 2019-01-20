@@ -42,7 +42,13 @@ class App extends PureComponent<AppProps, AppState> {
     return (
       <div className="linkWrapper">
         Your short link:{" "}
-        <a href={this.state.shortLink}>{this.state.shortLink}</a>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={this.state.shortLink}
+        >
+          {this.state.shortLink}
+        </a>
       </div>
     );
   }
