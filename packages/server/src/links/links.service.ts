@@ -32,9 +32,45 @@ export class LinksService {
     return link;
   }
 
+  async getStats() {
+    const createdLinksNumber = await this.getCreatedLinksNumber();
+    const linksVisitsNumber = await this.getLinksVisitsNumber();
+    const lastCreatedLinkTime = await this.getLastCreatedLinkTime();
+
+    return {
+      createdLinks: createdLinksNumber,
+      linksVisits: linksVisitsNumber,
+      lastCreatedLinkTime,
+    };
+  }
+
   private async hasUniqueId(link: Link): Promise<boolean> {
     const existingLink = await this.linksRepository.findOne(link.id);
 
     return Boolean(existingLink);
+  }
+
+  private async getCreatedLinksNumber() {
+    return await this.linksRepository.count();
+  }
+
+  private async getLinksVisitsNumber() {
+    const { sum } = await this.linksRepository
+      .createQueryBuilder('link')
+      .select('SUM(link.visitsNumber)', 'sum')
+      .getRawOne();
+
+    return Number(sum);
+  }
+
+  private async getLastCreatedLinkTime() {
+    const { link_createdAt } = await this.linksRepository
+      .createQueryBuilder('link')
+      .select('link.createdAt')
+      .orderBy('link.createdAt', 'DESC')
+      .limit(1)
+      .getRawOne();
+
+    return link_createdAt;
   }
 }

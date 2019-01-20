@@ -11,6 +11,11 @@ export class LinksController {
     return this.linksService.create(link);
   }
 
+  @Get('stats')
+  getStats() {
+    return this.linksService.getStats();
+  }
+
   @Get(':id')
   findOne(@Param('id') id) {
     return this.linksService.findOne(id);
