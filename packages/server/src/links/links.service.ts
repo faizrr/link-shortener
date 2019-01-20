@@ -55,7 +55,7 @@ export class LinksService {
   }
 
   private async getLinksVisitsNumber() {
-    const { sum } = await this.linksRepository
+    const { sum = 0 } = await this.linksRepository
       .createQueryBuilder('link')
       .select('SUM(link.visitsNumber)', 'sum')
       .cache(5000)
@@ -65,13 +65,14 @@ export class LinksService {
   }
 
   private async getLastCreatedLinkTime() {
-    const { link_createdAt } = await this.linksRepository
-      .createQueryBuilder('link')
-      .select('link.createdAt')
-      .orderBy('link.createdAt', 'DESC')
-      .limit(1)
-      .cache(5000)
-      .getRawOne();
+    const { link_createdAt = null } =
+      (await this.linksRepository
+        .createQueryBuilder('link')
+        .select('link.createdAt')
+        .orderBy('link.createdAt', 'DESC')
+        .limit(1)
+        .cache(5000)
+        .getRawOne()) || {};
 
     return link_createdAt;
   }
