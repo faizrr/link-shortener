@@ -4,6 +4,7 @@ import axios from "axios";
 import { API_BASE } from "./constants";
 
 import Form, { FormFields } from "./Form";
+import Stats from "./Stats";
 
 interface AppProps {}
 interface AppState {
@@ -56,6 +57,8 @@ class App extends PureComponent<AppProps, AppState> {
 
           {this.shortLink}
         </div>
+
+        <Stats />
       </div>
     );
   }
